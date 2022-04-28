@@ -1,0 +1,28 @@
+
+Ryobi Baku 3 :
+
+NonBakuImg : https://imgur.com/YEdydQi
+BakuImg: https://imgur.com/VdlOkut
+LrImg: ?
+
+Carte: Baku3
+Personnage: Ryobi
+Style: Flash (jaune)
+Leader: Sister ATK +170%
+rarity: ?
+MAX HP:3350
+MAX ATTACK:3320
+MAX DEFENSE:1180
+MAX SPEED:288
+NINPO POWER: 2x[3]
+NINPO EFFECT: MARKS FLASH TARGETS (max 3 stacls)
+NINPO COOLDOWN: Low
+SNINPO POWER: 6x(9x)[1]
+SNINPO EFFECT: Defense debuff[50%]
+SNINPO COST: LOW
+FNINPO POWER:
+       EFFECT:
+       COST:
+PASSIVE 1: ATTACK +100% vs 1
+PASSIVE 2: SNINPO COMBO +30
+PASSIVE 3: ATTACK +80% with 5 allies
