@@ -33,13 +33,13 @@ class Card extends React.Component {
                 <div>
                     {
                         islr ? (
-                            <button className='bg-slate-600 text-gray-900 w-16 rounded-md mr-2' onClick={() => this.setState({ lr: true, ur: false, ssr: false })}>LR</button>
+                            <button className='bg-slate-300 text-gray-900 w-16 rounded-md mr-2' onClick={() => this.setState({ lr: true, ur: false, ssr: false })}>LR</button>
                         ) : (
                             null
                         )
                     }
-                    <button className='bg-slate-600 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: true, ssr: false })}>UR</button>
-                    <button className='ml-2 bg-slate-600 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: false, ssr: true })}>SSR</button>
+                    <button className='bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: true, ssr: false })}>UR</button>
+                    <button className='ml-2 bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: false, ssr: true })}>SSR</button>
                     <Link to={"/card-detail/" + this.props.card.id }>
                         {
                             lr ? (

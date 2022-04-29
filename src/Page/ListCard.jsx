@@ -31,7 +31,7 @@ class ListCard extends React.Component {
     render() {
         const {cards} = this.state;
         return (
-            <div className="flex flex-col bg-gray-700 md:items-center h-full">
+            <div className="flex flex-col bg-slate-400 md:items-center h-full">
                 <Navbar />
                 <p className="text-center pt-20 text-2xl text-gray-900 underline">Liste des cartes</p>
                 <div className="h-screen mx-5 md:flex md:flex-row">
