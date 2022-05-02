@@ -14,7 +14,7 @@ const HomePage = () => {
                         This is a simple web app that allows you to browse and search across all the shinomas card available a this moment on the website with english translation.
                     </p>
                     <p className="mt-5 text-xl">
-                        Want to try ? Click on the button below to start browsing.
+                        Want to try ? Click on the button below to start browsing. test
                     </p>
                     <Link className="bg-slate-300 text-center text-l flex flex-col justify-center rounded-md h-12 w-24 mt-5" to="/card-list">Card List</Link>
                 </div>

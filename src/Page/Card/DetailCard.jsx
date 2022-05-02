@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import CardDataService from "../services/card.service";
-import StatDataService from "../services/stat.service";
-import CharacterDataService from "../services/character.service";
-import HasLinkDataService from "../services/haslink.service";
-import LinkDataService from "../services/link.service";
-import AsCategorieDataService from "../services/ascategorie.service";
-import CategorieDataService from "../services/categorie.service";
+import Navbar from "../../Components/Navbar";
+import CardDataService from "../../services/card.service";
+import StatDataService from "../../services/stat.service";
+import CharacterDataService from "../../services/character.service";
+import HasLinkDataService from "../../services/haslink.service";
+import LinkDataService from "../../services/link.service";
+import AsCategorieDataService from "../../services/ascategorie.service";
+import CategorieDataService from "../../services/categorie.service";
 
 function DetailCard(props) {
     const { id } = useParams();
