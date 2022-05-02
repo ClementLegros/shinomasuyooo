@@ -1,72 +1,109 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import CharacterDataService from "../services/character.service";
 
-class Card extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = ({
-            ssr: false,
-            ur: false,
-            islr: false,
-            lr: false
-        })
-    }
 
-    componentDidMount() {
-        console.log(this.props)
-        if (this.props.card.rarity == "LR") {
-            this.setState({ lr: true, islr: true })
+const Card = (props) => {
+
+    const [card, setCard] = React.useState(props.card)
+    const [islr, setIsLr] = React.useState(false)
+    const [lr, setLr] = React.useState(false)
+    const [ur, setUr] = React.useState(false)
+    const [ssr, setSsr] = React.useState(false)
+    const [character, setCharacter] = React.useState([])
+
+    useEffect(() => {
+        if (card.rarity == "LR") {
+            console.log("its an LR")
+            setIsLr(true);
+            setLr(true)
         }
-        else if (this.props.card.rarity == "UR") {
-            this.setState({ ur: true })
+        else if (card.rarity == "UR") {
+            console.log("its an UR")
+            setUr(true)
         }
         else {
-            this.setState({ ssr: true })
+            console.log("its an SSR")
+            setSsr(true)
         }
+        getCharacter(card.idcharacter)
+    }, [card])
 
+    const getCharacter = (idcharacter) => {
+        CharacterDataService.get(idcharacter)
+            .then(response => {
+                setCharacter(response.data);
+
+            })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
-    render() {
-        const { lr, islr, ur, ssr } = this.state
-        return (
-            <div className='pt-5 md:px-5'>
-                <div>
+    function passageLr() {
+        setLr(true);
+        setUr(false);
+        setSsr(false);
+    }
+
+    function passageUr() {
+        setLr(false);
+        setUr(true);
+        setSsr(false);
+    }
+
+    function passageSsr() {
+        setLr(false);
+        setUr(false);
+        setSsr(true);
+    }
+
+
+    return (
+        <div className='pt-5 md:px-5 w-full bg-slate-400'>
+            <div className='w-full'>
+                <div className='flex flex-row justify-center'>
                     {
                         islr ? (
-                            <button className='bg-slate-300 text-gray-900 w-16 rounded-md mr-2' onClick={() => this.setState({ lr: true, ur: false, ssr: false })}>LR</button>
+                            <button className='bg-slate-300 text-gray-900 w-16 rounded-md mr-2' onClick={() => passageLr() }>LR</button>
                         ) : (
                             null
                         )
+
                     }
-                    <button className='bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: true, ssr: false })}>UR</button>
-                    <button className='ml-2 bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => this.setState({ lr: false, ur: false, ssr: true })}>SSR</button>
-                    <Link to={"/card-detail/" + this.props.card.id }>
+                    <button className='bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => passageUr()}>UR</button>
+                    <button className='ml-2 bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
+                </div>
+
+                <div className='flex flex-col justify-center items-center'>
+                    <Link to={"/card-detail/" + card.id}>
                         {
                             lr ? (
-                                <img className='cursor-pointer md:h-64' src={this.props.card.lrcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' src={card.lrcardimg} />
                             ) : ur ? (
-                                    <img className='cursor-pointer md:h-64' src={this.props.card.urcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' src={card.urcardimg} />
                             ) : (
-                                        <img className='cursor-pointer md:h-64' src={this.props.card.ssrcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' src={card.ssrcardimg} />
                             )
                         }
-                    </Link> 
-                </div>
-                <div className='flex flex-row justify-center items-center'>
-                    {
-                        lr ? (
-                            <img className='w-14 h-26' src='./lrlogo.png' />
-                        ) : ur ? (
-                            <img className='w-14 h-26' src='./urlogo.png' />
-                        ) : (
-                            <img className='w-14 h-26' src='./ssrlogo.png' />
-                        )
-                    }
-                    <p className='font-semibold text-gray-900'>{this.props.card.character + " " + this.props.card.name}</p>
+                    </Link>
                 </div>
             </div>
-        )
-    }
+            <div className='flex flex-row justify-center items-center'>
+                {
+                    lr ? (
+                        <img className='w-14 h-26' src='./lrlogo.png' />
+                    ) : ur ? (
+                        <img className='w-14 h-26' src='./urlogo.png' />
+                    ) : (
+                        <img className='w-14 h-26' src='./ssrlogo.png' />
+                    )
+                }
+                <p className='font-semibold text-gray-900'>{character.name + " " + card.name}</p>
+                <img className='w-14 h-26' src={character.faction} />
+            </div>
+        </div>
+    )
 }
 
 export default Card;

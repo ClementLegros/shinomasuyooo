@@ -2,7 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.initdiv {
-    height: 100vh;
-    width: 100%;
-}

@@ -19,9 +19,9 @@ class ListCard extends React.Component {
     getAllCards() {
         CardDataService.getAll()
             .then(response => {
-                    console.log(response.data);
-                    this.setState({ cards: response.data })
-                }
+                console.log(response.data);
+                this.setState({ cards: response.data })
+            }
             ).catch(
                 error => {
                     console.log(error);
@@ -29,14 +29,14 @@ class ListCard extends React.Component {
     }
 
     render() {
-        const {cards} = this.state;
+        const { cards } = this.state;
         return (
-            <div className="flex flex-col bg-slate-400 md:items-center h-full">
+            <div className=" bg-slate-400 h-screen w-screen">
                 <Navbar />
-                <p className="text-center pt-20 text-2xl text-gray-900 underline">Liste des cartes</p>
-                <div className="h-screen mx-5 md:flex md:flex-row">
-                    {cards.map(card => (
-                        <Card 
+                <p className="text-center pt-5 text-2xl text-gray-900 underline">Liste des cartes</p>
+                <div className="h-full md:grid md:grid-cols-3 md:gap-3 w-full md:px-48 bg-slate-400">
+                    {cards.map((card, index) => (
+                        <Card
                             key={card.id}
                             card={card}
                         />

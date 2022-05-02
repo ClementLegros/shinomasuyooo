@@ -20,6 +20,7 @@ function DetailCard(props) {
     const [isLoading, setIsLoading] = React.useState(true);
 
     const [islr, setIsLr] = React.useState(false);
+    const[ispairnyuu, setIsPairnyuu] = React.useState(false);
     const [lr, setLr] = React.useState(false);
     const [ur, setUr] = React.useState(false);
     const [ssr, setSsr] = React.useState(false);
@@ -36,17 +37,18 @@ function DetailCard(props) {
                 setCard(response.data);
                 //Define the rarity of the card
                 if (response.data.rarity == "LR") {
-                    console.log("its an LR")
                     setIsLr(true);
                     setLr(true)
                 }
                 else if (response.data.rarity == "UR") {
-                    console.log("its an UR")
                     setUr(true)
                 }
                 else {
                     console.log("its an SSR")
                     setSsr(true)
+                }
+                if(response.data.cninpoeffect != null){
+                    setIsPairnyuu(true)
                 }
                 getCharacter(response.data.idcharacter)
             })
@@ -101,12 +103,9 @@ function DetailCard(props) {
     const getAsCategorie = (id) => {
         const categorielist = [];
 
-        console.log("ID : " + id)
-
         AsCategorieDataService.get(id)
             .then(async response => {
                 for (const ascategorie of response.data) {
-                    console.log(ascategorie)
                     try {
                         const response = await CategorieDataService.get(ascategorie.idcate)
                         categorielist.push(response.data);
@@ -138,9 +137,9 @@ function DetailCard(props) {
 
 
     return (
-        <div className="bg-slate-400 h-full text-gray-900">
+        <div className="bg-slate-400 h-full md:h-screen text-gray-900 bg-contain">
             <Navbar />
-            <div className="pt-16">
+            <div className="pt-5">
                 <div className='flex flex-row justify-center items-center'>
                     <img className="w-8 h-26" src={card.style} />
                     {
@@ -228,31 +227,110 @@ function DetailCard(props) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><img className="w-12" src="../HP.png"/></td>
+                                    <td><img className="w-12" src="../Hp.png" /></td>
                                     <td>{stats.basehp}</td>
                                     <td>{stats.maxhp}</td>
                                     <td>{stats.rhp}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Atk.png"/></td>
+                                    <td><img className="w-12" src="../Atk.png" /></td>
                                     <td>{stats.baseatk}</td>
                                     <td>{stats.maxatk}</td>
                                     <td>{stats.ratk}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Def.png"/></td>
+                                    <td><img className="w-12" src="../Def.png" /></td>
                                     <td>{stats.basedef}</td>
                                     <td>{stats.maxdef}</td>
                                     <td>{stats.rdef}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Speed.png"/></td>
+                                    <td><img className="w-12" src="../Speed.png" /></td>
                                     <td>{stats.basespeed}</td>
                                     <td>{stats.maxspeed}</td>
                                     <td>{stats.rspeed}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div className="border-2 border-transparent w-11/12 bg-slate-300 rounded-md mt-2 mb-5">
+                        <div className="bg-slate-400 w-full">
+                            <p>ninpo</p>
+                        </div>
+                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                            <p>Area</p>
+                            <p>Effect</p>
+                            <p>Cooldown</p>
+                        </div>
+                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                            <p>{card.ninpoarea}</p>
+                            <p>{card.ninpoeffect}</p>
+                            <p>{card.ninpocooldown}</p>
+                        </div>
+                        <div className="bg-slate-400 w-full">
+                            <p>sninpo</p>
+                        </div>
+                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                            <p>Area</p>
+                            <p>Effect</p>
+                            <p>Cooldown</p>
+                        </div>
+                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                            <p>{card.sninpoarea}</p>
+                            <p>{card.sninpoeffect}</p>
+                            <p>{card.sninpocooldown}</p>
+                        </div>
+                        {
+                            ispairnyuu ? (
+                                <>
+                                    <div className="bg-slate-400 w-full">
+                                        <p>cninpo</p>
+                                    </div>
+                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                                        <p>Area</p>
+                                        <p>Effect</p>
+                                        <p>Cooldown</p>
+                                    </div>
+                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                                        <p>{card.cninpoarea}</p>
+                                        <p>{card.cninpoeffect}</p>
+                                        <p>{card.cninpocooldown}</p>
+                                    </div>
+                                </>
+                            ) : (null)
+                        }
+                        {
+                            islr ? (
+                                    <>
+                                    <div className="bg-slate-400 w-full">
+                                        <p>fninpo</p>
+                                    </div>
+                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                                        <p>Area</p>
+                                        <p>Effect</p>
+                                        <p>Cooldown</p>
+                                    </div>
+                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                                        <p>{card.fninpoarea}</p>
+                                        <p>{card.fninpoeffect}</p>
+                                        <p>{card.fninpocooldown}</p>
+                                    </div>
+                                    </>
+
+                            ) : (null)
+                        }
+                    </div>
+                    <div className="border-2 border-transparent w-11/12 bg-slate-300 rounded-md mt-2 mb-5">
+                        <div className="bg-slate-400 w-full text-center">
+                            <p>Card icon</p>
+                        </div>
+                        <div className="flex flex-row md:flex-row justify-evenly">
+                            {islr ? (
+                                <img src={card.lrcardimgpreview} className="w-24" />
+                            ) : (null)}
+                            <img src={card.urcardimgpreview} className="w-24" />
+                            <img src={card.ssrcardimgpreview} className="w-24" />
+                        </div>
                     </div>
                 </div>
             </div>
