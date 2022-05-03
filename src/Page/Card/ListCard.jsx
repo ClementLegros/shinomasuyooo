@@ -31,10 +31,10 @@ class ListCard extends React.Component {
     render() {
         const { cards } = this.state;
         return (
-            <div className="h-screen w-screen">
+            <div className="w-screen">
                 <Navbar />
-                <p className="text-center pt-5 text-2xl text-gray-900 underline">Liste des cartes</p>
-                <div className="h-full md:grid md:grid-cols-3 md:gap-3 w-full md:px-48 bg-slate-400">
+                <p className="text-center pt-5 text-2xl underline dark:text-white">Liste des cartes</p>
+                <div className="h-full md:grid md:grid-cols-3 md:gap-3 w-full md:px-48">
                     {cards.map((card, index) => (
                         <Card
                             key={card.id}

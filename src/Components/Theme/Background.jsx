@@ -3,9 +3,9 @@ import React from 'react';
 const Background = ({ children }) => {
     return (
 
-        <body className="bg-slate-600 dark:bg-black transition-all">
+        <div className="bg-slate-400 dark:bg-zinc-800 transition-all">
             {children}
-        </body>
+        </div>
     )
 }
 

@@ -4,7 +4,7 @@ import Navbar from "../Components/Navbar"
 const Incoming = () => {
 
     return (
-        <div className="bg-slate-400 h-screen">
+        <div className="h-screen">
             <Navbar />
             <div className="h-full pt-20 flex flex-col items-center">
                 <p className="text-2xl">
@@ -43,7 +43,7 @@ const Incoming = () => {
                     <a className="cursor-pointer text-white" href="mailto:clmnt.kaya@gmail.com">It's right here</a>
                 </div>
             </div>
-            
+
         </div>
     )
 }

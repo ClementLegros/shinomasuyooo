@@ -1,0 +1,4 @@
+Dark:
+       -text-white
+       -bg-zinc-800
+       -bg-zinc-700

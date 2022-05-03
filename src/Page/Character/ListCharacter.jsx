@@ -16,7 +16,7 @@ const ListCharacter = () => {
     }
 
     return (
-        <div className="bg-slate-400">
+        <div className="">
             <Navbar />
             <div className="flex flex-col items-center">
                 <div>

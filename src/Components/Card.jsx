@@ -13,12 +13,12 @@ const Card = (props) => {
     const [character, setCharacter] = React.useState([])
 
     useEffect(() => {
-        if (card.rarity == "LR") {
+        if (card.rarity === "LR") {
             console.log("its an LR")
             setIsLr(true);
             setLr(true)
         }
-        else if (card.rarity == "UR") {
+        else if (card.rarity === "UR") {
             console.log("its an UR")
             setUr(true)
         }
@@ -60,30 +60,30 @@ const Card = (props) => {
 
 
     return (
-        <div className='pt-5 md:px-5 w-full bg-slate-400'>
+        <div className='pt-5 md:px-5 w-full'>
             <div className='w-full'>
                 <div className='flex flex-row justify-center'>
                     {
                         islr ? (
-                            <button className='bg-slate-300 text-gray-900 w-16 rounded-md mr-2' onClick={() => passageLr() }>LR</button>
+                            <button className='w-16 rounded-md mr-2 dark:bg-zinc-700 dark:text-white' onClick={() => passageLr() }>LR</button>
                         ) : (
                             null
                         )
 
                     }
-                    <button className='bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => passageUr()}>UR</button>
-                    <button className='ml-2 bg-slate-300 text-gray-900 w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
+                    <button className='w-16 rounded-md dark:bg-zinc-700 dark:text-white' onClick={() => passageUr()}>UR</button>
+                    <button className='ml-2 w-16 rounded-md dark:bg-zinc-700 dark:text-white' onClick={() => passageSsr()}>SSR</button>
                 </div>
 
                 <div className='flex flex-col justify-center items-center'>
                     <Link to={"/card-detail/" + card.id}>
                         {
                             lr ? (
-                                <img className='cursor-pointer h-56 md:h-80' src={card.lrcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' alt='lrcardimg' src={card.lrcardimg} />
                             ) : ur ? (
-                                <img className='cursor-pointer h-56 md:h-80' src={card.urcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' alt='urcardimg' src={card.urcardimg} />
                             ) : (
-                                <img className='cursor-pointer h-56 md:h-80' src={card.ssrcardimg} />
+                                <img className='cursor-pointer h-56 md:h-80' alt='ssrcardimg' src={card.ssrcardimg} />
                             )
                         }
                     </Link>
@@ -92,15 +92,15 @@ const Card = (props) => {
             <div className='flex flex-row justify-center items-center'>
                 {
                     lr ? (
-                        <img className='w-14 h-26' src='./lrlogo.png' />
+                        <img className='w-14 h-26' alt='lrlogo' src='./lrlogo.png' />
                     ) : ur ? (
-                        <img className='w-14 h-26' src='./urlogo.png' />
+                        <img className='w-14 h-26' alt='urlogo' src='./urlogo.png' />
                     ) : (
-                        <img className='w-14 h-26' src='./ssrlogo.png' />
+                        <img className='w-14 h-26' alt='ssrlogo' src='./ssrlogo.png' />
                     )
                 }
-                <p className='font-semibold text-gray-900'>{character.name + " " + card.name}</p>
-                <img className='w-14 h-26' src={character.faction} />
+                <p className='font-semibold text-gray-900 dark:text-white'>{character.name + " " + card.name}</p>
+                <img className='w-14 h-26' alt='factionlogo' src={character.faction} />
             </div>
         </div>
     )

@@ -137,7 +137,7 @@ function DetailCard(props) {
 
 
     return (
-        <div className="bg-slate-400 h-full md:h-screen text-gray-900 bg-contain">
+        <div className="h-full md:h-screen text-gray-900 bg-contain dark:text-white">
             <Navbar />
             <div className="pt-5">
                 <div className='flex flex-row justify-center items-center'>
@@ -169,24 +169,24 @@ function DetailCard(props) {
                     <div className="flex flex-row w-full justify-center pt-2">
                         {
                             islr ? (
-                                <button className='bg-slate-300  w-16 rounded-md mr-2' onClick={() => passageLr()}>LR</button>
+                                <button className='dark:bg-zi  w-16 rounded-md mr-2' onClick={() => passageLr()}>LR</button>
                             ) : (
                                 null
                             )
                         }
-                        <button className='bg-slate-300  w-16 rounded-md' onClick={() => passageUr()}>UR</button>
-                        <button className='ml-2 bg-slate-300  w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
+                        <button className='dark:bg-zinc-700  w-16 rounded-md' onClick={() => passageUr()}>UR</button>
+                        <button className='ml-2 dark:bg-zinc-700  w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
                     </div>
                 </div>
                 <div className="flex flex-col w-full items-center mt-2">
-                    <div className="border-2 w-11/12 border-transparent bg-slate-300 rounded-md mt-2">
-                        <div className="w-full bg-slate-400">
+                    <div className="border-2 w-11/12 border-transparent dark:bg-zinc-700 rounded-md mt-2">
+                        <div className="w-full dark:bg-zinc-800">
                             Leader
                         </div>
                         <div>
                             <p>{card.leader}</p>
                         </div>
-                        <div className="bg-slate-400">
+                        <div className="dark:bg-zinc-800">
                             passive
                         </div>
                         <div>
@@ -194,7 +194,7 @@ function DetailCard(props) {
                             <p>{card.passive2}</p>
                             <p>{card.passive3}</p>
                         </div>
-                        <div className="bg-slate-400">
+                        <div className="dark:bg-zinc-800">
                             links
                         </div>
                         <div>
@@ -203,7 +203,7 @@ function DetailCard(props) {
                                     <p key={petitlink.id}>{petitlink.name}</p>
                                 )}
                         </div>
-                        <div className="bg-slate-400">
+                        <div className="dark:bg-zinc-800">
                             Categories
                         </div>
                         <div>
@@ -214,8 +214,8 @@ function DetailCard(props) {
                             }
                         </div>
                     </div>
-                    <div className="border-2 border-transparent w-11/12 bg-slate-300 rounded-md mt-2 mb-5">
-                        <div className="bg-slate-400 w-full"><p>Stat</p></div>
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 rounded-md mt-2 mb-5">
+                        <div className="dark:bg-zinc-800 w-full"><p>Stat</p></div>
                         <table className="table-auto w-full text-center">
                             <thead>
                                 <tr>
@@ -253,8 +253,8 @@ function DetailCard(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="border-2 border-transparent w-11/12 bg-slate-300 rounded-md mt-2 mb-5">
-                        <div className="bg-slate-400 w-full">
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 rounded-md mt-2 mb-5">
+                        <div className="dark:bg-zinc-800 w-full">
                             <p>ninpo</p>
                         </div>
                         <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
@@ -267,7 +267,7 @@ function DetailCard(props) {
                             <p>{card.ninpoeffect}</p>
                             <p>{card.ninpocooldown}</p>
                         </div>
-                        <div className="bg-slate-400 w-full">
+                        <div className="dark:bg-zinc-800 w-full">
                             <p>sninpo</p>
                         </div>
                         <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
@@ -283,7 +283,7 @@ function DetailCard(props) {
                         {
                             ispairnyuu ? (
                                 <>
-                                    <div className="bg-slate-400 w-full">
+                                    <div className="dark:bg-zinc-800 w-full">
                                         <p>cninpo</p>
                                     </div>
                                     <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
@@ -302,7 +302,7 @@ function DetailCard(props) {
                         {
                             islr ? (
                                     <>
-                                    <div className="bg-slate-400 w-full">
+                                    <div className="dark:bg-zinc-800 w-full">
                                         <p>fninpo</p>
                                     </div>
                                     <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
@@ -320,8 +320,8 @@ function DetailCard(props) {
                             ) : (null)
                         }
                     </div>
-                    <div className="border-2 border-transparent w-11/12 bg-slate-300 rounded-md mt-2 mb-5">
-                        <div className="bg-slate-400 w-full text-center">
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 rounded-md mt-2 mb-5">
+                        <div className="dark:bg-zinc-800 w-full text-center">
                             <p>Card icon</p>
                         </div>
                         <div className="flex flex-row md:flex-row justify-evenly">
