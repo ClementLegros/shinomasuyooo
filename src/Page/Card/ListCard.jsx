@@ -3,24 +3,21 @@ import React from 'react'
 import Card from "../../Components/Card";
 import CardDataService from "../../services/card.service";
 
-class ListCard extends React.Component {
+const ListCard = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: []
-        }
-    }
+    const [cards, setCards] = React.useState([]);
+    const [loading, setLoading] = React.useState(true)
 
-    componentDidMount() {
-        this.getAllCards();
-    }
+    React.useEffect(() => {
+        getAllCards();
+    }, []);
 
-    getAllCards() {
+    function getAllCards() {
         CardDataService.getAll()
             .then(response => {
                 console.log(response.data);
-                this.setState({ cards: response.data })
+                setCards(response.data);
+                setLoading(false)
             }
             ).catch(
                 error => {
@@ -28,8 +25,16 @@ class ListCard extends React.Component {
                 });
     }
 
-    render() {
-        const { cards } = this.state;
+    if(loading) {
+        return(
+            <div className="h-screen">
+                <Navbar/>
+                <div className="h-full flex flex-col justify-center items-center">
+                    <img alt='loading..' src='../../loading.gif' />
+                </div>
+            </div>
+        )
+    }else{
         return (
             <div className="w-screen">
                 <Navbar />
@@ -45,6 +50,10 @@ class ListCard extends React.Component {
             </div>
         )
     }
+
+
+    
 }
+
 
 export default ListCard;

@@ -65,14 +65,14 @@ const Card = (props) => {
                 <div className='flex flex-row justify-center'>
                     {
                         islr ? (
-                            <button className='w-16 rounded-md mr-2 dark:bg-zinc-700 dark:text-white' onClick={() => passageLr() }>LR</button>
+                            <button className='w-16 rounded-md mr-2 bg-slate-200 dark:bg-zinc-700 dark:text-white' onClick={() => passageLr() }>LR</button>
                         ) : (
                             null
                         )
 
                     }
-                    <button className='w-16 rounded-md dark:bg-zinc-700 dark:text-white' onClick={() => passageUr()}>UR</button>
-                    <button className='ml-2 w-16 rounded-md dark:bg-zinc-700 dark:text-white' onClick={() => passageSsr()}>SSR</button>
+                    <button className='w-16 rounded-md bg-slate-200 dark:bg-zinc-700 dark:text-white' onClick={() => passageUr()}>UR</button>
+                    <button className='ml-2 w-16 rounded-md bg-slate-200 dark:bg-zinc-700 dark:text-white' onClick={() => passageSsr()}>SSR</button>
                 </div>
 
                 <div className='flex flex-col justify-center items-center'>
@@ -99,7 +99,7 @@ const Card = (props) => {
                         <img className='w-14 h-26' alt='ssrlogo' src='./ssrlogo.png' />
                     )
                 }
-                <p className='font-semibold text-gray-900 dark:text-white'>{character.name + " " + card.name}</p>
+                <p className='font-semibold text-gray-700 dark:text-white'>{character.name + " " + card.name}</p>
                 <img className='w-14 h-26' alt='factionlogo' src={character.faction} />
             </div>
         </div>

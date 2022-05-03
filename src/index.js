@@ -7,7 +7,7 @@ import HomePage from './Page/HomePage';
 import Incoming from './Page/Incoming';
 import ListCard from './Page/Card/ListCard';
 import ListCharacter from './Page/Character/ListCharacter';
-import SettingPage from './Page/Settingz/SettingPage';
+import SettingPage from './Page/Setting/SettingPage';
 import { ThemeProvider } from './Components/Theme/ThemeContext';
 import Background from './Components/Theme/Background';
 import ListCardCharacter from './Page/Character/ListCardCharacter';
