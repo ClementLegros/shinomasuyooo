@@ -10,348 +10,374 @@ import AsCategorieDataService from "../../services/ascategorie.service";
 import CategorieDataService from "../../services/categorie.service";
 
 function DetailCard(props) {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const [card, setCard] = React.useState({});
-    const [stats, setStats] = React.useState([]);
-    const [character, setCharacters] = React.useState({});
-    const [links, setLinks] = React.useState([]);
-    const [categorie, setCategorie] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
+  const [card, setCard] = React.useState({});
+  const [stats, setStats] = React.useState([]);
+  const [character, setCharacters] = React.useState({});
+  const [links, setLinks] = React.useState([]);
+  const [categorie, setCategorie] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-    const [islr, setIsLr] = React.useState(false);
-    const [ispairnyuu, setIsPairnyuu] = React.useState(false);
-    const [lr, setLr] = React.useState(false);
-    const [ur, setUr] = React.useState(false);
-    const [ssr, setSsr] = React.useState(false);
+  const [islr, setIsLr] = React.useState(false);
+  const [ispairnyuu, setIsPairnyuu] = React.useState(false);
+  const [lr, setLr] = React.useState(false);
+  const [ur, setUr] = React.useState(false);
+  const [ssr, setSsr] = React.useState(false);
 
-    useEffect(() => {
-        getCard(id);
-        getStat(id);
-        getHasLink(id);
-    }, [id]);
+  useEffect(() => {
+    getCard(id);
+    getStat(id);
+    getHasLink(id);
+  }, [id]);
 
-    const getCard = (id) => {
-        CardDataService.get(id)
-            .then(response => {
-                setCard(response.data);
-                //Define the rarity of the card
-                if (response.data.rarity == "LR") {
-                    setIsLr(true);
-                    setLr(true)
-                }
-                else if (response.data.rarity == "UR") {
-                    setUr(true)
-                }
-                else {
-                    console.log("its an SSR")
-                    setSsr(true)
-                }
-                if (response.data.cninpoeffect != null) {
-                    setIsPairnyuu(true)
-                }
-                getCharacter(response.data.idcharacter)
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
+  const getCard = (id) => {
+    CardDataService.get(id)
+      .then((response) => {
+        setCard(response.data);
+        //Define the rarity of the card
+        if (response.data.rarity == "LR") {
+          setIsLr(true);
+          setLr(true);
+        } else if (response.data.rarity == "UR") {
+          setUr(true);
+        } else {
+          console.log("its an SSR");
+          setSsr(true);
+        }
+        if (response.data.cninpoeffect != null) {
+          setIsPairnyuu(true);
+        }
+        getCharacter(response.data.idcharacter);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    //Fetching the stats of the card
-    const getStat = (id) => {
-        StatDataService.get(id)
-            .then(response => {
-                setStats(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
+  //Fetching the stats of the card
+  const getStat = (id) => {
+    StatDataService.get(id)
+      .then((response) => {
+        setStats(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    //Fetching the characters of the card
-    const getCharacter = (idcharacter) => {
-        CharacterDataService.get(idcharacter)
-            .then(response => {
-                setCharacters(response.data);
-                getAsCategorie(response.data.id)
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
+  //Fetching the characters of the card
+  const getCharacter = (idcharacter) => {
+    CharacterDataService.get(idcharacter)
+      .then((response) => {
+        setCharacters(response.data);
+        getAsCategorie(response.data.id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    //Fetching the haslinks of the card
-    const getHasLink = (id) => {
-        const linklist = [];
-        HasLinkDataService.get(id)
-            .then(async response => {
-                for (const links of response.data) {
-                    try {
-                        const response = await LinkDataService.get(links.idlink)
-                        linklist.push(response.data);
-                    } catch (error) {
-                        console.log("error while fetching the link -> " + error);
-                    }
-                }
-                setLinks(linklist);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
+  //Fetching the haslinks of the card
+  const getHasLink = (id) => {
+    const linklist = [];
+    HasLinkDataService.get(id)
+      .then(async (response) => {
+        for (const links of response.data) {
+          try {
+            const response = await LinkDataService.get(links.idlink);
+            linklist.push(response.data);
+          } catch (error) {
+            console.log("error while fetching the link -> " + error);
+          }
+        }
+        setLinks(linklist);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    const getAsCategorie = (id) => {
-        const categorielist = [];
+  const getAsCategorie = (id) => {
+    const categorielist = [];
 
-        AsCategorieDataService.get(id)
-            .then(async response => {
-                for (const ascategorie of response.data) {
-                    try {
-                        const response = await CategorieDataService.get(ascategorie.idcate)
-                        categorielist.push(response.data);
-                    } catch (error) {
-                        console.log("error while fetching the ascategorie -> " + error)
-                    }
-                }
-                setCategorie(categorielist);
-            })
-    }
+    AsCategorieDataService.get(id).then(async (response) => {
+      for (const ascategorie of response.data) {
+        try {
+          const response = await CategorieDataService.get(ascategorie.idcate);
+          categorielist.push(response.data);
+        } catch (error) {
+          console.log("error while fetching the ascategorie -> " + error);
+        }
+      }
+      setCategorie(categorielist);
+    });
+  };
 
-    function passageLr() {
-        setLr(true);
-        setUr(false);
-        setSsr(false);
-    }
+  function passageLr() {
+    setLr(true);
+    setUr(false);
+    setSsr(false);
+  }
 
-    function passageUr() {
-        setLr(false);
-        setUr(true);
-        setSsr(false);
-    }
+  function passageUr() {
+    setLr(false);
+    setUr(true);
+    setSsr(false);
+  }
 
-    function passageSsr() {
-        setLr(false);
-        setUr(false);
-        setSsr(true);
-    }
+  function passageSsr() {
+    setLr(false);
+    setUr(false);
+    setSsr(true);
+  }
 
+  return (
+    <div className="h-full md:h-screen text-gray-900 bg-contain dark:text-white">
+      <Navbar />
+      <div className="pt-5 flex flex-col md:flex-row w-full">
+        <div className="md:w-1/2">
+          <div className="flex flex-col">
+            <div className="flex flex-row justify-center items-center">
+              <img className="w-8 h-26" alt="cardstyle" src={card.style} />
+              {lr ? (
+                <img className="w-14 h-26" alt="lrlogo" src="../lrlogo.png" />
+              ) : ur ? (
+                <img className="w-14 h-26" alt="urlogo" src="../urlogo.png" />
+              ) : (
+                <img className="w-14 h-26" alt="ssrlogo" src="../ssrlogo.png" />
+              )}
+              <p className="font-semibold">
+                {character.name + " " + card.name}
+              </p>
 
-    return (
-        <div className="h-full md:h-screen text-gray-900 bg-contain dark:text-white">
-            <Navbar />
-            <div className="pt-5 flex flex-col md:flex-row w-full">
-                <div className="md:w-1/2">
-                    <div className="flex flex-col">
-                        <div className='flex flex-row justify-center items-center'>
-                            <img className="w-8 h-26" alt='cardstyle' src={card.style} />
-                            {
-                                lr ? (
-                                    <img className='w-14 h-26' alt='lrlogo' src='../lrlogo.png' />
-                                ) : ur ? (
-                                    <img className='w-14 h-26' alt='urlogo' src='../urlogo.png' />
-                                ) : (
-                                    <img className='w-14 h-26' alt='ssrlogo' src='../ssrlogo.png' />
-                                )
-                            }
-                            <p className='font-semibold'>{character.name + " " + card.name}</p>
-
-                            <img className='w-8 h-26' alt='imgaffiliation' src={character.affiliation} />
-                        </div>
-                        <div className="md:items-center md:flex md:flex-col">
-                            {
-                                lr ? (
-                                    <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='lrcardimg' src={card.lrcardimg} />
-                                ) : ur ? (
-                                        <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='urcardimg' src={card.urcardimg} />
-                                ) : (
-                                            <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='ssrcardimg' src={card.ssrcardimg} />
-                                )
-                            }
-                            <div className="flex flex-row w-full justify-center pt-2">
-                                {
-                                    islr ? (
-                                        <button className='dark:bg-zinc-700 bg-slate-200  w-16 rounded-md mr-2' onClick={() => passageLr()}>LR</button>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                                <button className='dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageUr()}>UR</button>
-                                <button className='ml-2 dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
-                            </div>
-                        </div>
-                    </div>
-                    {/*<div className="w-full md:w-1/2 items-center mt-2 flex flex-col">*/}
-                    
-                </div>
-                <div className="md:w-1/2 flex flex-col justify-center">
-                    <div className="w-full flex flex-col items-center md:flex-row">
-                        <div className="border-2 w-11/12 border-transparent dark:bg-zinc-700 bg-slate-200 rounded-md mt-2">
-                            <div className="w-full dark:bg-zinc-800 bg-slate-300">
-                                Leader
-                            </div>
-                            <div>
-                                <p>{card.leader}</p>
-                            </div>
-                            <div className="dark:bg-zinc-800 bg-slate-300">
-                                passive
-                            </div>
-                            <div>
-                                <p>{card.passive1}</p>
-                                <p>{card.passive2}</p>
-                                <p>{card.passive3}</p>
-                            </div>
-                            <div className="dark:bg-zinc-800 bg-slate-300">
-                                links
-                            </div>
-                            <div>
-                                {
-                                    links.map(petitlink =>
-                                        <p key={petitlink.id}>{petitlink.name}</p>
-                                    )}
-                            </div>
-                            <div className="dark:bg-zinc-800 bg-slate-300">
-                                Categories
-                            </div>
-                            <div>
-                                {
-                                    categorie.map(petitlink =>
-                                        <p key={petitlink.id}>{petitlink.name}</p>
-                                    )
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <img
+                className="w-8 h-26"
+                alt="imgaffiliation"
+                src={character.affiliation}
+              />
             </div>
-            <div>
-                <div className="w-full flex flex-col items-center mt-4">
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
-                        <div className="dark:bg-zinc-800 bg-slate-300 w-full"><p>Stat</p></div>
-                        <table className="table-auto w-full text-center">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Base</th>
-                                    <th>Max</th>
-                                    <th>Rainbow</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><img className="w-12" alt='HP' src="../Hp.png" /></td>
-                                    <td>{stats.basehp}</td>
-                                    <td>{stats.maxhp}</td>
-                                    <td>{stats.rhp}</td>
-                                </tr>
-                                <tr>
-                                    <td><img className="w-12" alt='ATK' src="../Atk.png" /></td>
-                                    <td>{stats.baseatk}</td>
-                                    <td>{stats.maxatk}</td>
-                                    <td>{stats.ratk}</td>
-                                </tr>
-                                <tr>
-                                    <td><img className="w-12" alt='DEF' src="../Def.png" /></td>
-                                    <td>{stats.basedef}</td>
-                                    <td>{stats.maxdef}</td>
-                                    <td>{stats.rdef}</td>
-                                </tr>
-                                <tr>
-                                    <td><img className="w-12" alt='SPEED' src="../Speed.png" /></td>
-                                    <td>{stats.basespeed}</td>
-                                    <td>{stats.maxspeed}</td>
-                                    <td>{stats.rspeed}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className="w-full flex flex-col items-center mt-4">
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
-                        <div className="dark:bg-zinc-800 bg-slate-300 w-full">
-                            <p>ninpo</p>
-                        </div>
-                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                            <p>Area</p>
-                            <p>Effect</p>
-                            <p>Cooldown</p>
-                        </div>
-                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                            <p>{card.ninpoarea}</p>
-                            <p>{card.ninpoeffect}</p>
-                            <p>{card.ninpocooldown}</p>
-                        </div>
-                        <div className="dark:bg-zinc-800 bg-slate-300 w-full">
-                            <p>sninpo</p>
-                        </div>
-                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                            <p>Area</p>
-                            <p>Effect</p>
-                            <p>Cooldown</p>
-                        </div>
-                        <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                            <p>{card.sninpoarea}</p>
-                            <p>{card.sninpoeffect}</p>
-                            <p>{card.sninpocooldown}</p>
-                        </div>
-                        {
-                            ispairnyuu ? (
-                                <>
-                                    <div className="dark:bg-zinc-800 bg-slate-300 w-full">
-                                        <p>cninpo</p>
-                                    </div>
-                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                                        <p>Area</p>
-                                        <p>Effect</p>
-                                        <p>Cooldown</p>
-                                    </div>
-                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                                        <p>{card.cninpoarea}</p>
-                                        <p>{card.cninpoeffect}</p>
-                                        <p>{card.cninpocooldown}</p>
-                                    </div>
-                                </>
-                            ) : (null)
-                        }
-                        {
-                            islr ? (
-                                <>
-                                    <div className="dark:bg-zinc-800 bg-slate-300 w-full">
-                                        <p>fninpo</p>
-                                    </div>
-                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                                        <p>Area</p>
-                                        <p>Effect</p>
-                                        <p>Cooldown</p>
-                                    </div>
-                                    <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
-                                        <p>{card.fninpoarea}</p>
-                                        <p>{card.fninpoeffect}</p>
-                                        <p>{card.fninpocooldown}</p>
-                                    </div>
-                                </>
-
-                            ) : (null)
-                        }
-                    </div>
-                </div>
-                <div className="w-full flex flex-col items-center mt-4">
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
-                        <div className="dark:bg-zinc-800 bg-slate-300 w-full text-center">
-                            <p>Card icon</p>
-                        </div>
-                        <div className="flex flex-row md:flex-row justify-evenly">
-                            {islr ? (
-                                <img src={card.lrcardimgpreview} alt='lrcardpreview' className="w-24" />
-                            ) : (null)}
-                            <img src={card.urcardimgpreview} alt='urcardreview' className="w-24" />
-                            <img src={card.ssrcardimgpreview} alt='ssrcardreview' className="w-24" />
-                        </div>
-                    </div>
-                </div>
-                {/*</div>*/}
+            <div className="md:items-center md:flex md:flex-col">
+              {lr ? (
+                <img
+                  className="cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96"
+                  alt="lrcardimg"
+                  src={card.lrcardimg}
+                />
+              ) : ur ? (
+                <img
+                  className="cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96"
+                  alt="urcardimg"
+                  src={card.urcardimg}
+                />
+              ) : (
+                <img
+                  className="cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96"
+                  alt="ssrcardimg"
+                  src={card.ssrcardimg}
+                />
+              )}
+              <div className="flex flex-row w-full justify-center pt-2">
+                {islr ? (
+                  <button
+                    className="dark:bg-zinc-700 bg-slate-200  w-16 rounded-md mr-2"
+                    onClick={() => passageLr()}
+                  >
+                    LR
+                  </button>
+                ) : null}
+                <button
+                  className="dark:bg-zinc-700 bg-slate-200 w-16 rounded-md"
+                  onClick={() => passageUr()}
+                >
+                  UR
+                </button>
+                <button
+                  className="ml-2 dark:bg-zinc-700 bg-slate-200 w-16 rounded-md"
+                  onClick={() => passageSsr()}
+                >
+                  SSR
+                </button>
+              </div>
             </div>
+          </div>
+          {/*<div className="w-full md:w-1/2 items-center mt-2 flex flex-col">*/}
         </div>
-    )
+        <div className="md:w-1/2 flex flex-col justify-center">
+          <div className="w-full flex flex-col items-center md:flex-row">
+            <div className="border-2 w-11/12 border-transparent dark:bg-zinc-700 bg-slate-200 rounded-md mt-2">
+              <div className="w-full dark:bg-zinc-800 bg-slate-300">Leader</div>
+              <div>
+                <p>{card.leader}</p>
+              </div>
+              <div className="dark:bg-zinc-800 bg-slate-300">passive</div>
+              <div>
+                <p>{card.passive1}</p>
+                <p>{card.passive2}</p>
+                <p>{card.passive3}</p>
+              </div>
+              <div className="dark:bg-zinc-800 bg-slate-300">links</div>
+              <div>
+                {links.map((petitlink) => (
+                  <p key={petitlink.id}>{petitlink.name}</p>
+                ))}
+              </div>
+              <div className="dark:bg-zinc-800 bg-slate-300">Categories</div>
+              <div>
+                {categorie.map((petitlink) => (
+                  <p key={petitlink.id}>{petitlink.name}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="w-full flex flex-col items-center mt-4">
+          <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
+            <div className="dark:bg-zinc-800 bg-slate-300 w-full">
+              <p>Stat</p>
+            </div>
+            <table className="table-auto w-full text-center">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Base</th>
+                  <th>Max</th>
+                  <th>Rainbow</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img className="w-12" alt="HP" src="../Hp.png" />
+                  </td>
+                  <td>{stats.basehp}</td>
+                  <td>{stats.maxhp}</td>
+                  <td>{stats.rhp}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img className="w-12" alt="ATK" src="../Atk.png" />
+                  </td>
+                  <td>{stats.baseatk}</td>
+                  <td>{stats.maxatk}</td>
+                  <td>{stats.ratk}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img className="w-12" alt="DEF" src="../Def.png" />
+                  </td>
+                  <td>{stats.basedef}</td>
+                  <td>{stats.maxdef}</td>
+                  <td>{stats.rdef}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img className="w-12" alt="SPEED" src="../Speed.png" />
+                  </td>
+                  <td>{stats.basespeed}</td>
+                  <td>{stats.maxspeed}</td>
+                  <td>{stats.rspeed}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="w-full flex flex-col items-center mt-4">
+          <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
+            <div className="dark:bg-zinc-800 bg-slate-300 w-full">
+              <p>ninpo</p>
+            </div>
+            <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+              <p>Area</p>
+              <p>Effect</p>
+              <p>Cooldown</p>
+            </div>
+            <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+              <p>{card.ninpoarea}</p>
+              <p>{card.ninpoeffect}</p>
+              <p>{card.ninpocooldown}</p>
+            </div>
+            <div className="dark:bg-zinc-800 bg-slate-300 w-full">
+              <p>sninpo</p>
+            </div>
+            <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+              <p>Area</p>
+              <p>Effect</p>
+              <p>Cooldown</p>
+            </div>
+            <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+              <p>{card.sninpoarea}</p>
+              <p>{card.sninpoeffect}</p>
+              <p>{card.sninpocooldown}</p>
+            </div>
+            {ispairnyuu ? (
+              <>
+                <div className="dark:bg-zinc-800 bg-slate-300 w-full">
+                  <p>cninpo</p>
+                </div>
+                <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                  <p>Area</p>
+                  <p>Effect</p>
+                  <p>Cooldown</p>
+                </div>
+                <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                  <p>{card.cninpoarea}</p>
+                  <p>{card.cninpoeffect}</p>
+                  <p>{card.cninpocooldown}</p>
+                </div>
+              </>
+            ) : null}
+            {islr ? (
+              <>
+                <div className="dark:bg-zinc-800 bg-slate-300 w-full">
+                  <p>fninpo</p>
+                </div>
+                <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                  <p>Area</p>
+                  <p>Effect</p>
+                  <p>Cooldown</p>
+                </div>
+                <div className="h-full grid grid-cols-3 gap-3 w-full md:px-48">
+                  <p>{card.fninpoarea}</p>
+                  <p>{card.fninpoeffect}</p>
+                  <p>{card.fninpocooldown}</p>
+                </div>
+              </>
+            ) : null}
+          </div>
+        </div>
+        <div className="w-full flex flex-col items-center mt-4">
+          <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
+            <div className="dark:bg-zinc-800 bg-slate-300 w-full text-center">
+              <p>Card icon</p>
+            </div>
+            <div className="flex flex-row md:flex-row justify-evenly">
+              {islr ? (
+                <img
+                  src={card.lrcardimgpreview}
+                  alt="lrcardpreview"
+                  className="w-24"
+                />
+              ) : null}
+              <img
+                src={card.urcardimgpreview}
+                alt="urcardreview"
+                className="w-24"
+              />
+              <img
+                src={card.ssrcardimgpreview}
+                alt="ssrcardreview"
+                className="w-24"
+              />
+            </div>
+          </div>
+        </div>
+        {/*</div>*/}
+      </div>
+    </div>
+  );
 }
 
 export default DetailCard;
