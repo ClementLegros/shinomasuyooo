@@ -76,7 +76,7 @@ const Card = (props) => {
                 </div>
 
                 <div className='flex flex-col justify-center items-center'>
-                    <Link to={"/card-detail/" + card.id}>
+                    <Link to={"/card/" + card.id}>
                         {
                             lr ? (
                                 <img className='cursor-pointer h-56 md:h-80' alt='lrcardimg' src={card.lrcardimg} />

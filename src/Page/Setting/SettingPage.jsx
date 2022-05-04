@@ -5,7 +5,8 @@ import { ThemeContext } from "../../Components/Theme/ThemeContext";
 import React from "react";
 
 const SettingPage = () => {
-    const [enabled, setEnabled] = useState()
+    const [themeSliderEnabled, themeSliderSetEnabled] = useState()
+    const [previewSliderEnabled, previewSliderSetEnabled] = useState()
     const { theme, setTheme } = React.useContext(ThemeContext);
 
     useEffect(() => {
@@ -17,24 +18,45 @@ const SettingPage = () => {
     async function getDataFromCache() {
         const cachedTheme = await localStorage.getItem("theme");
         console.log("chache storage theme", cachedTheme);
+        //Light mode
         if (cachedTheme === "enabled") {
-            setEnabled(true);
+            themeSliderSetEnabled(true);
         }
         else {
-            setEnabled(false);
+            themeSliderSetEnabled(false);
+        }
+        //Preview mode
+        const cachedPreview = await localStorage.getItem("preview");
+        console.log("chache storage preview", cachedPreview);
+        if (cachedPreview === "enabled") {
+            previewSliderSetEnabled(true);
+        }
+        else {
+            previewSliderSetEnabled(false);
         }
     }
 
-    const changeSlider = () => {
-        if (enabled) {
+    const changeSliderTheme = () => {
+        if (themeSliderEnabled) {
             localStorage.setItem("theme", "disabled");
-            setEnabled(false)
+            themeSliderSetEnabled(false)
         }
         else {
             localStorage.setItem("theme", "enabled");
-            setEnabled(true)
+            themeSliderSetEnabled(true)
         }
         setTheme(theme === "light" ? "dark" : "light");
+    }
+
+    const changeSliderPreview = () => {
+        if (previewSliderEnabled) {
+            localStorage.setItem("preview", "disabled");
+            previewSliderSetEnabled(false)
+        }
+        else {
+            localStorage.setItem("preview", "enabled");
+            previewSliderSetEnabled(true)
+        }
     }
 
     return (
@@ -42,21 +64,39 @@ const SettingPage = () => {
             <Navbar />
             <div className="flex flex-col items-center">
                 <p className="text-3xl underline font-semibold dark:text-gray-500">Setting Page</p>
+                {/* Preview mode Switch */}
                 <div className="flex flex-row items-center justify-center mt-8">
                     <Switch
-                        checked={enabled}
-                        onChange={changeSlider}
-                        className={`${enabled ? 'bg-teal-900' : 'bg-teal-700'}
+                        checked={themeSliderEnabled}
+                        onChange={changeSliderTheme}
+                        className={`${themeSliderEnabled ? 'bg-teal-900' : 'bg-teal-700'}
                         relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                     >
                         <span className="sr-only">Use setting</span>
                         <span
                             aria-hidden="false"
-                            className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
+                            className={`${themeSliderEnabled ? 'translate-x-9' : 'translate-x-0'}
             pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                         />
                     </Switch>
-                    <p className="text-xl dark:text-gray-500 pl-3">Toggle Light mode</p>
+                    <p className="text-xl dark:text-gray-500 pl-3">Toggle light mode</p>
+                </div>
+                {/* Preview mode Switch */}
+                <div className="flex flex-row items-center justify-center mt-8">
+                    <Switch
+                        checked={previewSliderEnabled}
+                        onChange={changeSliderPreview}
+                        className={`${previewSliderEnabled ? 'bg-teal-900' : 'bg-teal-700'}
+                        relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                    >
+                        <span className="sr-only">Use setting</span>
+                        <span
+                            aria-hidden="false"
+                            className={`${previewSliderEnabled ? 'translate-x-9' : 'translate-x-0'}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                        />
+                    </Switch>
+                    <p className="text-xl dark:text-gray-500 pl-3">Card Preview</p>
                 </div>
             </div>
         </div>

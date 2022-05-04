@@ -16,7 +16,7 @@ const HomePage = () => {
                     <p className="mt-5 text-xl">
                         Want to try ? Click on the button below to start browsing. test
                     </p>
-                    <Link className="text-center text-l flex flex-col justify-center rounded-md h-12 w-24 mt-5 dark:bg-zinc-900 bg-gray-300" to="/card-list">Card List</Link>
+                    <Link className="text-center text-l flex flex-col justify-center rounded-md h-12 w-24 mt-5 dark:bg-zinc-900 bg-gray-300" to="/card">Card List</Link>
                 </div>
                 <Footer />
             </div>

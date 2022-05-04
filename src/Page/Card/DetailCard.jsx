@@ -20,7 +20,7 @@ function DetailCard(props) {
     const [isLoading, setIsLoading] = React.useState(true);
 
     const [islr, setIsLr] = React.useState(false);
-    const[ispairnyuu, setIsPairnyuu] = React.useState(false);
+    const [ispairnyuu, setIsPairnyuu] = React.useState(false);
     const [lr, setLr] = React.useState(false);
     const [ur, setUr] = React.useState(false);
     const [ssr, setSsr] = React.useState(false);
@@ -47,7 +47,7 @@ function DetailCard(props) {
                     console.log("its an SSR")
                     setSsr(true)
                 }
-                if(response.data.cninpoeffect != null){
+                if (response.data.cninpoeffect != null) {
                     setIsPairnyuu(true)
                 }
                 getCharacter(response.data.idcharacter)
@@ -139,82 +139,93 @@ function DetailCard(props) {
     return (
         <div className="h-full md:h-screen text-gray-900 bg-contain dark:text-white">
             <Navbar />
-            <div className="pt-5">
-                <div className='flex flex-row justify-center items-center'>
-                    <img className="w-8 h-26" src={card.style} />
-                    {
-                        lr ? (
-                            <img className='w-14 h-26' src='../lrlogo.png' />
-                        ) : ur ? (
-                            <img className='w-14 h-26' src='../urlogo.png' />
-                        ) : (
-                            <img className='w-14 h-26' src='../ssrlogo.png' />
-                        )
-                    }
-                    <p className='font-semibold'>{character.name + " " + card.name}</p>
-
-                    <img className='w-8 h-26' src={character.affiliation} />
-
-                </div>
-                <div className="md:items-center md:flex md:flex-col">
-                    {
-                        lr ? (
-                            <img className='cursor-pointer md:h-64' src={card.lrcardimg} />
-                        ) : ur ? (
-                            <img className='cursor-pointer md:h-64' src={card.urcardimg} />
-                        ) : (
-                            <img className='cursor-pointer md:h-64' src={card.ssrcardimg} />
-                        )
-                    }
-                    <div className="flex flex-row w-full justify-center pt-2">
-                        {
-                            islr ? (
-                                <button className='dark:bg-zinc-700 bg-slate-200  w-16 rounded-md mr-2' onClick={() => passageLr()}>LR</button>
-                            ) : (
-                                null
-                            )
-                        }
-                        <button className='dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageUr()}>UR</button>
-                        <button className='ml-2 dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
-                    </div>
-                </div>
-                <div className="flex flex-col w-full items-center mt-2">
-                    <div className="border-2 w-11/12 border-transparent dark:bg-zinc-700 bg-slate-200 rounded-md mt-2">
-                        <div className="w-full dark:bg-zinc-800 bg-slate-300">
-                            Leader
-                        </div>
-                        <div>
-                            <p>{card.leader}</p>
-                        </div>
-                        <div className="dark:bg-zinc-800 bg-slate-300">
-                            passive
-                        </div>
-                        <div>
-                            <p>{card.passive1}</p>
-                            <p>{card.passive2}</p>
-                            <p>{card.passive3}</p>
-                        </div>
-                        <div className="dark:bg-zinc-800 bg-slate-300">
-                            links
-                        </div>
-                        <div>
+            <div className="pt-5 flex flex-col md:flex-row w-full">
+                <div className="md:w-1/2">
+                    <div className="flex flex-col">
+                        <div className='flex flex-row justify-center items-center'>
+                            <img className="w-8 h-26" alt='cardstyle' src={card.style} />
                             {
-                                links.map(petitlink =>
-                                    <p key={petitlink.id}>{petitlink.name}</p>
-                                )}
-                        </div>
-                        <div className="dark:bg-zinc-800 bg-slate-300">
-                            Categories
-                        </div>
-                        <div>
-                            {
-                                categorie.map(petitlink =>
-                                    <p key={petitlink.id}>{petitlink.name}</p>
+                                lr ? (
+                                    <img className='w-14 h-26' alt='lrlogo' src='../lrlogo.png' />
+                                ) : ur ? (
+                                    <img className='w-14 h-26' alt='urlogo' src='../urlogo.png' />
+                                ) : (
+                                    <img className='w-14 h-26' alt='ssrlogo' src='../ssrlogo.png' />
                                 )
                             }
+                            <p className='font-semibold'>{character.name + " " + card.name}</p>
+
+                            <img className='w-8 h-26' alt='imgaffiliation' src={character.affiliation} />
+                        </div>
+                        <div className="md:items-center md:flex md:flex-col">
+                            {
+                                lr ? (
+                                    <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='lrcardimg' src={card.lrcardimg} />
+                                ) : ur ? (
+                                        <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='urcardimg' src={card.urcardimg} />
+                                ) : (
+                                            <img className='cursor-pointer md:h-64 lg:h-72 xl:h-80 2xl:h-96' alt='ssrcardimg' src={card.ssrcardimg} />
+                                )
+                            }
+                            <div className="flex flex-row w-full justify-center pt-2">
+                                {
+                                    islr ? (
+                                        <button className='dark:bg-zinc-700 bg-slate-200  w-16 rounded-md mr-2' onClick={() => passageLr()}>LR</button>
+                                    ) : (
+                                        null
+                                    )
+                                }
+                                <button className='dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageUr()}>UR</button>
+                                <button className='ml-2 dark:bg-zinc-700 bg-slate-200 w-16 rounded-md' onClick={() => passageSsr()}>SSR</button>
+                            </div>
                         </div>
                     </div>
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md mt-2 mb-5">
+                    {/*<div className="w-full md:w-1/2 items-center mt-2 flex flex-col">*/}
+                    
+                </div>
+                <div className="md:w-1/2 flex flex-col justify-center">
+                    <div className="w-full flex flex-col items-center md:flex-row">
+                        <div className="border-2 w-11/12 border-transparent dark:bg-zinc-700 bg-slate-200 rounded-md mt-2">
+                            <div className="w-full dark:bg-zinc-800 bg-slate-300">
+                                Leader
+                            </div>
+                            <div>
+                                <p>{card.leader}</p>
+                            </div>
+                            <div className="dark:bg-zinc-800 bg-slate-300">
+                                passive
+                            </div>
+                            <div>
+                                <p>{card.passive1}</p>
+                                <p>{card.passive2}</p>
+                                <p>{card.passive3}</p>
+                            </div>
+                            <div className="dark:bg-zinc-800 bg-slate-300">
+                                links
+                            </div>
+                            <div>
+                                {
+                                    links.map(petitlink =>
+                                        <p key={petitlink.id}>{petitlink.name}</p>
+                                    )}
+                            </div>
+                            <div className="dark:bg-zinc-800 bg-slate-300">
+                                Categories
+                            </div>
+                            <div>
+                                {
+                                    categorie.map(petitlink =>
+                                        <p key={petitlink.id}>{petitlink.name}</p>
+                                    )
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div className="w-full flex flex-col items-center mt-4">
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
                         <div className="dark:bg-zinc-800 bg-slate-300 w-full"><p>Stat</p></div>
                         <table className="table-auto w-full text-center">
                             <thead>
@@ -227,25 +238,25 @@ function DetailCard(props) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><img className="w-12" src="../Hp.png" /></td>
+                                    <td><img className="w-12" alt='HP' src="../Hp.png" /></td>
                                     <td>{stats.basehp}</td>
                                     <td>{stats.maxhp}</td>
                                     <td>{stats.rhp}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Atk.png" /></td>
+                                    <td><img className="w-12" alt='ATK' src="../Atk.png" /></td>
                                     <td>{stats.baseatk}</td>
                                     <td>{stats.maxatk}</td>
                                     <td>{stats.ratk}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Def.png" /></td>
+                                    <td><img className="w-12" alt='DEF' src="../Def.png" /></td>
                                     <td>{stats.basedef}</td>
                                     <td>{stats.maxdef}</td>
                                     <td>{stats.rdef}</td>
                                 </tr>
                                 <tr>
-                                    <td><img className="w-12" src="../Speed.png" /></td>
+                                    <td><img className="w-12" alt='SPEED' src="../Speed.png" /></td>
                                     <td>{stats.basespeed}</td>
                                     <td>{stats.maxspeed}</td>
                                     <td>{stats.rspeed}</td>
@@ -253,7 +264,9 @@ function DetailCard(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md mt-2 mb-5">
+                </div>
+                <div className="w-full flex flex-col items-center mt-4">
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
                         <div className="dark:bg-zinc-800 bg-slate-300 w-full">
                             <p>ninpo</p>
                         </div>
@@ -301,7 +314,7 @@ function DetailCard(props) {
                         }
                         {
                             islr ? (
-                                    <>
+                                <>
                                     <div className="dark:bg-zinc-800 bg-slate-300 w-full">
                                         <p>fninpo</p>
                                     </div>
@@ -315,12 +328,14 @@ function DetailCard(props) {
                                         <p>{card.fninpoeffect}</p>
                                         <p>{card.fninpocooldown}</p>
                                     </div>
-                                    </>
+                                </>
 
                             ) : (null)
                         }
                     </div>
-                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md mt-2 mb-5">
+                </div>
+                <div className="w-full flex flex-col items-center mt-4">
+                    <div className="border-2 border-transparent w-11/12 dark:bg-zinc-700 bg-slate-200 rounded-md">
                         <div className="dark:bg-zinc-800 bg-slate-300 w-full text-center">
                             <p>Card icon</p>
                         </div>
@@ -333,6 +348,7 @@ function DetailCard(props) {
                         </div>
                     </div>
                 </div>
+                {/*</div>*/}
             </div>
         </div>
     )

@@ -7,8 +7,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = [
-    { name: 'Card', href: '/card-list', current: false },
-    { name: 'Character', href: '/character-list', current: false },
+    { name: 'Card', href: '/card', current: false },
+    { name: 'Character', href: '/character', current: false },
     { name: 'Settings', href: '/settings', current: false },
 ]
 
